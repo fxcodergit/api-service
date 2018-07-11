@@ -28,6 +28,7 @@ public class UserController {
         System.out.println("test spring-mvc ...");
         Jedis jedis = RedisClient.getClient().getJedis();
         System.out.println(jedis.set("1", "=============="));
+
         return "login";
     }
 
