@@ -1,8 +1,10 @@
 package cn.fxcoder.user;
 
+import cn.fxcoder.RedisClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import redis.clients.jedis.Jedis;
 
 /**
  * @program: parent
@@ -24,6 +26,8 @@ public class UserController {
     @RequestMapping(value = "/login",method = RequestMethod.GET)
     public String login() {
         System.out.println("test spring-mvc ...");
+        Jedis jedis = RedisClient.getClient().getJedis();
+        System.out.println(jedis.set("1", "=============="));
         return "login";
     }
 
