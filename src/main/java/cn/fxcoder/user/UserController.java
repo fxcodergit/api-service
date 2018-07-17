@@ -1,10 +1,12 @@
 package cn.fxcoder.user;
 
+import cn.fxcoder.JedisLock;
 import cn.fxcoder.RedisClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import redis.clients.jedis.Jedis;
+import static cn.fxcoder.constants.RedisConstants.*;
 
 /**
  * @program: parent
@@ -25,11 +27,21 @@ public class UserController {
      */
     @RequestMapping(value = "/login",method = RequestMethod.GET)
     public String login() {
-        System.out.println("test spring-mvc ...");
+        System.out.println("test spring-mvc...");
         Jedis jedis = RedisClient.getClient().getJedis();
+        JedisLock jedisLock = new JedisLock();
+        boolean result = jedisLock.lock("Liu", LOCK_EXPIRES,LOCK_WAITTIME);
+        System.out.println(result);
         System.out.println(jedis.set("1", "=============="));
 
         return "login";
     }
+
+
+
+
+
+
+
 
 }
